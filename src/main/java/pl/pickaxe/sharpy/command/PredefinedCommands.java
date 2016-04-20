@@ -1,32 +1,31 @@
-package pl.pickaxe.sharpy.sharpy.command;
-
-import java.util.concurrent.TimeUnit;
+package pl.pickaxe.sharpy.command;
 
 import de.btobastian.javacord.DiscordAPI;
-import de.btobastian.javacord.ImplDiscordAPI;
 import de.btobastian.javacord.entities.message.Message;
-import pl.pickaxe.sharpy.sharpy.Sharpy;
+import pl.pickaxe.sharpy.Sharpy;
 
 public class PredefinedCommands {
-  public void check(DiscordAPI api, Message message) {
+  public static void check(DiscordAPI api, Message message) {
+    
+    // To make things easier
     String msg = message.getContent();
+    
+    // Hi Sharpy
     if (msg.contains("hi") || msg.contains("hello")) {
       message.getChannelReceiver().sendMessage("Hi " + message.getAuthor().getName() + "!");
+      
+      // Polish Hi Sharpy
     } else if (msg.contains("cześć") || msg.contains("witaj") || msg.contains("siemka")
         || msg.contains("elo") || msg.contains("eldo")) {
       message.getChannelReceiver().sendMessage("Witaj " + message.getAuthor().getName() + "!");
-    } else if (msg.contains("shutdown")) {
+      
+      // Kill sharpy
+    } else if (msg.contains("shutdown") || msg.contains("die") || msg.contains("stop killing us")) {
       if (!Sharpy.admins.contains(message.getAuthor().getId())) {
         return;
       }
-      try {
-        message.getChannelReceiver().sendMessage("Shutting down!");
-        ((ImplDiscordAPI) api).getSocketAdapter().getWebSocket().sendClose(1000);
-        TimeUnit.SECONDS.sleep(1);
-        System.exit(0);
-      } catch (InterruptedException e) {
-
-      }
+      message.getChannelReceiver().sendMessage("Shutting down!");
+      Sharpy.disable(false, message.getChannelReceiver());
     }
   }
 }
