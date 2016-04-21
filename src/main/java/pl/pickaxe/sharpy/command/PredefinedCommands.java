@@ -14,6 +14,9 @@ public class PredefinedCommands {
     if (msg.contains("hi") || msg.contains("hello")) {
       message.getChannelReceiver().sendMessage("Hi " + message.getAuthor().getName() + "!");
       
+    } else if (msg.contains("who is the best")) {
+      message.getChannelReceiver().sendMessage("" + message.getAuthor().getName() + " you are!");
+      
       // Polish Hi Sharpy
     } else if (msg.contains("cześć") || msg.contains("witaj") || msg.contains("siemka")
         || msg.contains("elo") || msg.contains("eldo")) {
