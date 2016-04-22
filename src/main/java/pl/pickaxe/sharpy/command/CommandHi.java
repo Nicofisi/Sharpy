@@ -14,7 +14,7 @@ public class CommandHi implements SharpyCommand {
 
   @Override
   public boolean register() {
-    matches.add(Pattern.compile(".*sharpy"));
+    matches.add(Pattern.compile(".*sharpy", Pattern.CASE_INSENSITIVE));
     return true;
   }
 

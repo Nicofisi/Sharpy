@@ -1,5 +1,7 @@
 package pl.pickaxe.sharpy;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.btobastian.javacord.DiscordAPI;
 import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.listener.message.MessageCreateListener;
@@ -16,7 +18,7 @@ public class MessageHandler implements MessageCreateListener {
           message.getAuthor().getName() + "(" + message.getChannelReceiver().getServer().getName()
               + ")[" + message.getChannelReceiver().getName() + "] " + msg);
     }
-    if (!msg.contains("sharpy") && !msg.contains("Sharpy")) {
+    if (! StringUtils.containsIgnoreCase(message.getContent(), api.getYourself().getName())) {
       return;
     }
     PredefinedCommands.check(api, message);
