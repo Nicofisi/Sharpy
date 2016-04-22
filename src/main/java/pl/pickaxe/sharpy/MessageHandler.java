@@ -1,5 +1,7 @@
 package pl.pickaxe.sharpy;
 
+import java.util.ArrayList;
+
 import org.apache.commons.lang3.StringUtils;
 
 import de.btobastian.javacord.DiscordAPI;
@@ -9,16 +11,50 @@ import pl.pickaxe.sharpy.command.PredefinedCommands;
 
 public class MessageHandler implements MessageCreateListener {
 
+  static ArrayList<Message> pendingMessagesLog = new ArrayList<Message>();
+
+  public static void startLogSendingThread() {
+    Thread log = new Thread() {
+
+      @Override
+      public void run() {
+        while (true) {
+          if (!pendingMessagesLog.isEmpty()) {
+            String logMessage = "";
+            for (Message message : pendingMessagesLog) {
+              logMessage = logMessage + message.getAuthor().getName() + "("
+                  + message.getChannelReceiver().getServer().getName() + ")["
+                  + message.getChannelReceiver().getName() + "] " + message.getContent() + "\n";
+            }
+            logMessage = logMessage.substring(0, logMessage.length());
+          }
+          pendingMessagesLog.clear();
+          try {
+            Thread.sleep(5 * 1000L);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    };
+
+    log.start();
+
+  }
+
   @Override
   public void onMessageCreate(DiscordAPI api, Message message) {
     String msg = message.getContent();
+
+    pendingMessagesLog.add(message);
+
     if (!message.getChannelReceiver().equals(Sharpy.adminLogChannel)
         && !message.getChannelReceiver().equals(Sharpy.logChannel)) {
       Sharpy.adminLogChannel.sendMessage(
           message.getAuthor().getName() + "(" + message.getChannelReceiver().getServer().getName()
               + ")[" + message.getChannelReceiver().getName() + "] " + msg);
     }
-    if (! StringUtils.containsIgnoreCase(message.getContent(), api.getYourself().getName())) {
+    if (!StringUtils.containsIgnoreCase(message.getContent(), api.getYourself().getName())) {
       return;
     }
     PredefinedCommands.check(api, message);

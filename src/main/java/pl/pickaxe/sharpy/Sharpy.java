@@ -65,6 +65,8 @@ public class Sharpy {
         }
         
         api.registerListener(new MessageHandler());
+        
+        MessageHandler.startLogSendingThread();
 
         long took = System.currentTimeMillis() - enableTime;
         for (Channel l : logChannels) {
