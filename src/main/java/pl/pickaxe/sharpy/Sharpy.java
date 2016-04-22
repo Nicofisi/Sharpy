@@ -17,6 +17,7 @@ public class Sharpy {
 
   public static Channel logChannel;
   public static Channel adminLogChannel;
+  public static Channel messagesLogChannel;
   public static ArrayList<Channel> logChannels = new ArrayList<>();
 
   private static DiscordAPI api;
@@ -38,8 +39,6 @@ public class Sharpy {
     trusted.add("152500984491278337");
     trusted.add("151050119754678272");
 
-    Registrar.registerAll();
-
     api = Javacord.getApi(email, password);
 
     api.connect(new FutureCallback<DiscordAPI>() {
@@ -54,17 +53,21 @@ public class Sharpy {
               if (c.getId().equalsIgnoreCase("172058448211607568")) {
                 logChannel = c;
                 logChannels.add(c);
-              }
-              if (c.getId().equalsIgnoreCase("172333437280059392")) {
+              } else if (c.getId().equalsIgnoreCase("172333437280059392")) {
                 adminLogChannel = c;
+                logChannels.add(c);
+              } else if (c.getId().equalsIgnoreCase("173002287772336128")) {
+                messagesLogChannel = c;
                 logChannels.add(c);
               }
             }
             break;
           }
         }
-        
+
         api.registerListener(new MessageHandler());
+
+        CommandRegistrator.registerAll(api);
         
         MessageHandler.startLogSendingThread();
 
@@ -100,8 +103,7 @@ public class Sharpy {
     } else {
       try {
         for (Channel l : logChannels) {
-          l.sendMessage(
-              "» Disabling " + api.getYourself().getName() + "..");
+          l.sendMessage("» Disabling " + api.getYourself().getName() + "..");
         }
         ((ImplDiscordAPI) api).getSocketAdapter().getWebSocket().sendClose(1000);
         TimeUnit.SECONDS.sleep(1);
