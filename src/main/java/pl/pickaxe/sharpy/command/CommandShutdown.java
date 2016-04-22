@@ -28,7 +28,7 @@ public class CommandShutdown implements SharpyCommand {
 
   @Override
   public String[] getResponses() {
-    return new String[] {"Shutting down!","Oh, I died","Am I.. disabled?!?"};
+    return new String[] {"Shutting down!","Oh, I died","Am I.. disabled?!?","[*]","rip."};
   }
 
   @Override
@@ -38,6 +38,11 @@ public class CommandShutdown implements SharpyCommand {
   
   @Override
   public boolean execute(DiscordAPI api, Message message) {
+    if (! Sharpy.admins.contains(message.getAuthor().getId())) {
+      message.getAuthor().sendMessage("1 KN0w J00 R 5ucH a pR0 hAX0R 8U7 L3av3 m3H al0N3");
+      message.delete();
+      return true;
+    }
     String r = Response.getRandom(this);
     message.getChannelReceiver().sendMessage(r);
     Sharpy.disable(false, message.getChannelReceiver());

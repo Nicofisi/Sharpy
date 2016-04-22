@@ -54,6 +54,10 @@ public class MessageHandler implements MessageCreateListener {
       }
     }
     
+    if (message.getAuthor().isYourself()) {
+      return;
+    }
+    
     if (!Sharpy.logChannels.contains(message.getChannelReceiver())) {
       pendingMessagesLog.add(message);
     }

@@ -19,10 +19,10 @@ public class CommandHi implements SharpyCommand {
   
   @Override
   public boolean register(DiscordAPI api) {
-    matches.add(Pattern.compile(".*hi.*", Pattern.CASE_INSENSITIVE));
-    matches.add(Pattern.compile(".*hello.*", Pattern.CASE_INSENSITIVE));
-    matches.add(Pattern.compile(".*welcome.*", Pattern.CASE_INSENSITIVE));
-    matches.add(Pattern.compile(".*hey.*", Pattern.CASE_INSENSITIVE));
+    matches.add(Pattern.compile(".*hi .*", Pattern.CASE_INSENSITIVE));
+    matches.add(Pattern.compile(".*hello .*", Pattern.CASE_INSENSITIVE));
+    matches.add(Pattern.compile(".*welcome .*", Pattern.CASE_INSENSITIVE));
+    matches.add(Pattern.compile(".*hey .*", Pattern.CASE_INSENSITIVE));
     return true;
   }
 
