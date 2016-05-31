@@ -65,6 +65,7 @@ public class MessageHandler implements MessageCreateListener {
 			return;
 		}
 
+		System.out.println("tesd");
 		if (CommandRunner.check(api, message)) {
 			return;
 		}
