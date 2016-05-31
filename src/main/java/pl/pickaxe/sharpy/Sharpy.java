@@ -44,7 +44,7 @@ public class Sharpy {
 
 			@Override
 			public void onSuccess(DiscordAPI api) {
-				api.setGame("Personal Development");
+				api.setGame("with Nicofisi");
 
 				for (Server s : api.getServers()) {
 					if (s.getId().equals("172058448211607568")) {

@@ -9,6 +9,10 @@ public abstract class SharpyCommand {
 
 	protected final ArrayList<String> aliases = new ArrayList<>();
 
+	protected final void addAlias(String alias) {
+		aliases.add(alias);
+	}
+
 	public final ArrayList<String> getAliases() {
 		return aliases;
 	}

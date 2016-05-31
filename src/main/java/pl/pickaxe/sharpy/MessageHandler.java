@@ -4,7 +4,8 @@ import de.btobastian.javacord.DiscordAPI;
 import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.listener.message.MessageCreateListener;
 import org.apache.commons.lang3.StringUtils;
-import pl.pickaxe.sharpy.actions.PredefinedActions;
+import pl.pickaxe.sharpy.actions.ActionRunner;
+import pl.pickaxe.sharpy.command.CommandRunner;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,10 @@ public class MessageHandler implements MessageCreateListener {
 			return;
 		}
 
-		PredefinedActions.check(api, message);
+		if (CommandRunner.check(api, message)) {
+			return;
+		}
+		ActionRunner.check(api, message);
 
 	}
 
