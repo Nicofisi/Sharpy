@@ -15,5 +15,6 @@ public class CommandTest extends SharpyCommand {
 	@Override
 	public void execute(DiscordAPI api, Message message) {
 		message.reply("Test yourself!");
+		System.out.println(message.getContent() + "OMGOMG");
 	}
 }

@@ -17,9 +17,11 @@ public class CommandRunner {
 
 		ArrayList<String> logResult = new ArrayList<>();
 
+
 		l:
 		for (SharpyCommand cmd : Registrar.getCommands()) {
 			for (String alias : cmd.getAliases()) {
+				System.out.println(PREFIX + alias);
 				if (text.equalsIgnoreCase(PREFIX + alias)) {
 					logResult.add("» Message: " + text.toString());
 					logResult.add("» Matched commands: " + cmd.toString());
