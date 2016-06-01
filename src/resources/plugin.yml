@@ -1,0 +1,4 @@
+name: Sharpy
+version: 1.0
+author: Nicofisi
+main: pl.pickaxe.sharpy.util.MinecraftPlugin

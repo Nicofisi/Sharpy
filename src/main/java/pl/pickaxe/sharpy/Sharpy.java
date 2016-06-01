@@ -6,6 +6,7 @@ import de.btobastian.javacord.ImplDiscordAPI;
 import de.btobastian.javacord.Javacord;
 import de.btobastian.javacord.entities.Channel;
 import de.btobastian.javacord.entities.Server;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +19,7 @@ public class Sharpy {
 	public static Channel adminLogChannel;
 	public static Channel messagesLogChannel;
 	public static ArrayList<Channel> logChannels = new ArrayList<>();
+	public static boolean onMinecraft = false;
 
 	private static DiscordAPI api;
 
@@ -32,11 +34,15 @@ public class Sharpy {
 		email = args[0];
 		password = args[1];
 
-		admins.add("140237130549952513");
+		final String NICOFISI = "140237130549952513";
+		final String NIIGRU = "152500984491278337";
+		final String KASIAQ = "151050119754678272";
 
-		trusted.add("140237130549952513");
-		trusted.add("152500984491278337");
-		trusted.add("151050119754678272");
+		admins.add(NICOFISI);
+
+		trusted.add(NICOFISI);
+		trusted.add(NIIGRU);
+		trusted.add(KASIAQ);
 
 		api = Javacord.getApi(email, password);
 
@@ -106,7 +112,11 @@ public class Sharpy {
 				}
 				((ImplDiscordAPI) api).getSocketAdapter().getWebSocket().sendClose(1000);
 				TimeUnit.SECONDS.sleep(1);
-				System.exit(0);
+				if (onMinecraft) {
+					Bukkit.getServer().shutdown();
+				} else {
+					System.exit(0);
+				}
 			} catch (InterruptedException e) {
 				executedIn.sendMessage("An error has occured, probably **nothing happened!** Message: *"
 						+ e.getMessage() + "*.");
